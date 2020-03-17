@@ -38,7 +38,25 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let listOfEncodedSymbols = expr.match(/.{10}/g);
+    let listOfMorseSymbols = listOfEncodedSymbols.map((element) => {
+        if(element[0]=== '*') {
+            return ' ';
+        }
+
+        let decodedMorseSymbol = element.match(/1\d/g).reduce((acc, element) => {
+            if(element === '10') {
+                return acc + '.';
+            }
+            else {
+                return acc + '-';
+            }
+        }, '');
+
+        return MORSE_TABLE[decodedMorseSymbol];
+    });
+
+    return listOfMorseSymbols.join('');
 }
 
 module.exports = {
